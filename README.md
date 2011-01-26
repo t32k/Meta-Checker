@@ -1,6 +1,7 @@
 Overview
 =============
 
+Firefox 3.6+ only.
 Display title element, meta elements(description, keywords), and count characters.
 
 Change log
