@@ -1,8 +1,8 @@
 // ==UserScript==
-// @name			Meta Checker
+// @name				Meta Checker
 // @namespace		http://twitter.com/t32k
-// @description		Display title element, meta elements(descripton, keywords), and count characters.
-// @version			1.4.5
+// @description	Display title element, meta elements(descripton, keywords), and count characters.
+// @version			1.4.6
 // @author			Koji Ishimoto
 // @include			http://*
 // @include 		https://*
@@ -14,7 +14,8 @@
 	  makeFrame(gotFrame);
 	}
 	function gotFrame(iframe, win, doc) {
-		var style, ttl, ttl_str, desc, desc_str, key, key_str, err, err_str;
+		var style, ttl, ttl_str, desc, desc_str, key, key_str,
+				noDef, noDef_str, noSet, noSet_str;
 		
 		addCSS(<><![CDATA[
 			body {margin: 0; color:fff; font-size: 13px;}
@@ -54,8 +55,11 @@
 			#display_panel .count {
 				text-align: right;
 			}
-			#display_panel .notice {
+			#display_panel .nodef {
 				color: #c00;
+			}
+			#display_panel .noset {
+				color: #ffd700;
 			}
 			#display_panel #toggle {
 				z-index: 2;
@@ -77,28 +81,39 @@
 		]]></>);
 		
 		// Check meta information.
-		err = "<span class='notice'>undefined :(</span>";
-		err_str = "<span class='notice'>0</span>";
+		noDef = "<span class='nodef'>Not defined :-...</span>";
+		noDef_str = "<span class='nodef'>0</span>";
+		noSet = "<span class='noset'>Not set :-(</span>";
+		noSet_str = "<span class='noset'>0</span>";
 		if (!$qS("title")) {
-		  ttl = err;
-		  ttl_str = err_str;
-		} else {
+		  ttl = noDef;
+		  ttl_str = noDef_str;
+		} else if ($qS("title").firstChild) {
 		  ttl = $qS("title").firstChild.nodeValue;
 		  ttl_str = ttl.replace(/ /g, "").length;
+		} else {
+		  ttl = noSet;
+		  ttl_str = noSet_str;
 		}
 		if (!$qS("meta[name$='escription']")) {
-		  desc = err;
-		  desc_str = err_str;
-		} else {
+		  desc = noDef;
+		  desc_str = noDef_str;
+		} else if ($qS("meta[name$='escription']").getAttribute("content")) {
 		  desc = $qS("meta[name$='escription']").getAttribute("content");
 		  desc_str = desc.replace(/ /g, "").length;
+		} else {
+		  desc = noSet;
+		  desc_str = noSet_str;
 		}
 		if (!$qS("meta[name$='eywords']")) {
-		  key = err;
-		  key_str = err_str;
-		} else {
+		  key = noDef;
+		  key_str = noDef_str;
+		} else if ($qS("meta[name$='eywords']").getAttribute("content")) {
 		  key = $qS("meta[name$='eywords']").getAttribute("content");
 		  key_str = key.split(",").length;
+		} else {
+		  key = noSet;
+		  key_str = noSet_str;
 		}
 		
 		// Make panel template.
