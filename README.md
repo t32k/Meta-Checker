@@ -6,8 +6,12 @@ Display title element, meta elements(description, keywords), and count character
 Change log
 ----------
 
+### ver.1.4.7
+
+* Set @icon meta.
+* iframe element z-index:2000;
 
 ### ver.1.4.6
 
-* Fixed error of Title element return null.
-* fixed counting keywords bug.
+* Fixed error of title element return null.
+* Fixed counting keywords bug.

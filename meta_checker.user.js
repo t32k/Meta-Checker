@@ -2,11 +2,12 @@
 // @name				Meta Checker
 // @namespace		http://twitter.com/t32k
 // @description	Display title element, meta elements(descripton, keywords), and count characters.
-// @version			1.4.6
+// @version			1.4.7
 // @author			Koji Ishimoto
 // @include			http://*
 // @include 		https://*
 // @exclude			http://*.google.tld/*
+// @icon        https://github.com/t32k/Meta-Checker/raw/master/icon.png
 // ==/UserScript==
 (function(){
 	// Avoid execute on each iframes.
@@ -215,7 +216,7 @@
 	  }
 	  var iframe = document.createElement("iframe");
 	  var framename = iframe.name = typeof name != "undefined" ? name : ("pane" + (makeFrame.id = (makeFrame.id || 0) - 1));
-	  iframe.setAttribute("style", "overflow:hidden; z-index:1000; position:fixed; top:auto; right:0; bottom:0; left:auto; width:100%; height:75px; margin:0; padding:0; border:0; background:transparent;");
+	  iframe.setAttribute("style", "overflow:hidden; z-index:2000; position:fixed; top:auto; right:0; bottom:0; left:auto; width:100%; height:75px; margin:0; padding:0; border:0; background:transparent;");
 	  iframe.src = "about:blank";
 	  iframe.addEventListener("load", done, true);
 	  var frames = makeFrame.data || {};
